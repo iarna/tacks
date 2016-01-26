@@ -1,6 +1,6 @@
 {
   "name": "tacks",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Generate fixture modules from folders",
   "main": "index.js",
   "bin": {
