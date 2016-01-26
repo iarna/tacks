@@ -66,8 +66,7 @@ Tacks.prototype.remove = function (location) {
 
 var generateFromDir = Tacks.generateFromDir = function (dir, indent) {
   if (!indent) {
-    return "'use strict'\n" + 
-      "var Tacks = require('underpinning')\n" +
+    return "var Tacks = require('tacks')\n" +
       'var File = Tacks.File\n' +
       'var Dir = Tacks.Dir\n' +
       'module.exports = new Tacks(\n' +
