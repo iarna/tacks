@@ -11,5 +11,10 @@
   },
   "keywords": [],
   "author": "Rebecca Turner <me@re-becca.org> (http://re-becca.org/)",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "graceful-fs": "^4.1.2",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.5.1"
+  }
 }
