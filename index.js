@@ -96,10 +96,10 @@ var generateFromDir = Tacks.generateFromDir = function (dir, indent) {
           }
           output += jsonStr
         } catch (ex) {
-          if (/^LICENSE|^README|[.](js|md)$/.test(filename)) {
-            output += outputAsText(indent + '    ', content)
-          } else {
+          if (/[^\-\w\s~`!@#$%^&*()_=+[\]{}|\\;:'",./<>?]/.test(content.toString())) {
             output += outputAsBuffer(indent + '    ', content)
+          } else {
+            output += outputAsText(indent + '    ', content)
           }
           output += '\n' + indent + '  )'
         }
