@@ -84,7 +84,7 @@ var generateFromDir = Tacks.generateFromDir = function (dir, indent) {
     } else {
       var content = fs.readFileSync(filepath)
       output += 'File('
-      if (output.length === 0) {
+      if (content.length === 0) {
         output += "'')"
       } else {
         try {
