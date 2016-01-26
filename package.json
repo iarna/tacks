@@ -1,0 +1,15 @@
+{
+  "name": "tacks",
+  "version": "1.0.0",
+  "description": "Generate fixture modules from folders",
+  "main": "index.js",
+  "bin": {
+    "tacks": "generate.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Rebecca Turner <me@re-becca.org> (http://re-becca.org/)",
+  "license": "ISC"
+}
