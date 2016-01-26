@@ -84,16 +84,20 @@ var generateFromDir = Tacks.generateFromDir = function (dir, indent) {
     } else {
       var content = fs.readFileSync(filepath)
       output += 'File('
-      try {
-        output += outputAsJSON(indent + '    ', content)
-      } catch (ex) {
-        if (/^LICENSE|^README|[.](js|md)$/.test(filename)) {
-          output += outputAsText(indent + '    ', content)
-        } else {
-          output += outputAsBuffer(indent + '    ', content)
+      if (output.length == 0) {
+        output += "'')"
+      } else {
+        try {
+          output += outputAsJSON(indent + '    ', content)
+        } catch (ex) {
+          if (/^LICENSE|^README|[.](js|md)$/.test(filename)) {
+            output += outputAsText(indent + '    ', content)
+          } else {
+            output += outputAsBuffer(indent + '    ', content)
+          }
         }
+        output += '\n' + indent + '  )'
       }
-      output += '\n' + indent + '  )'
     }
     output += ',\n'
   })
