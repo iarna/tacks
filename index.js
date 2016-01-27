@@ -46,14 +46,12 @@ Tacks.prototype.create = function (location, fixture) {
   if (!fixture) fixture = self.fixture
   if (fixture.type === 'dir') {
     var subdirpath = path.resolve(location, fixture.path)
-    console.log('mkdirp', subdirpath)
     mkdirp.sync(subdirpath)
     Object.keys(fixture.contents).forEach(function (content) {
       self.create(location, fixture.contents[content])
     })
   } else if (fixture.type === 'file') {
     mkdirp.sync(path.resolve(location, fixture.path, '..'))
-    console.log('write file', path.resolve(location, fixture.path))
     fs.writeFileSync(path.resolve(location, fixture.path), fixture.contents)
   } else {
     throw new Error('Unknown fixture type: ' + fixture.type)
