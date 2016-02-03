@@ -4,7 +4,7 @@
   "description": "Generate fixture modules from folders",
   "main": "index.js",
   "bin": {
-    "tacks": "generate.js"
+    "tacks": "cmdline.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
