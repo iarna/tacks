@@ -71,7 +71,6 @@ objects using hex encoded strings as input.
 
 These are things I'll do sooner or late myself.
 
-* Add `yargs` to the command line to have some basic affordances.
 * Include adding a `.mockFs('/tmp/fixture/path/')` function which returns a
   patched version of `fs` that, for attempts to read from `/tmp/fixture/path`
   returns data from the in memory fixture instead of looking at the
