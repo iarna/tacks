@@ -1,51 +1,61 @@
 'use strict'
 var path = require('path')
 var fs = require('graceful-fs')
+var loadFromDir = require('./load-from-dir.js')
 
-module.exports = function generateFromDir (dir, indent) {
-  if (!indent) {
-    return "var Tacks = require('tacks')\n" +
+module.exports = function generateFromDir (dir) {
+  var model = loadFromDir(dir)
+  return "var Tacks = require('tacks')\n" +
       'var File = Tacks.File\n' +
       'var Dir = Tacks.Dir\n' +
       'module.exports = new Tacks(\n' +
-      '  ' + generateFromDir(dir, '  ').replace(/,(\n\s+[})])/g, '$1') + '\n' +
-      ')'
+      '  ' + modelToString(model.fixture, '  ') + '\n' +
+      ')\n'
+}
+
+function modelToString (model, indent) {
+  var output = ''
+  if (model.type === 'dir') {
+    return dirToString(model.contents, indent)
+  } else if (model.type === 'file') {
+    return fileToString(model.contents, indent)
+  } else {
+    throw new Error("Don't know how to serialize " + model.type)
   }
+}
+
+function dirToString (contents, indent) {
   var output = 'Dir({\n'
-  fs.readdirSync(dir).forEach(function (filename) {
-    if (filename === '.git') return
-    var filepath = path.join(dir, filename)
-    var fileinfo = fs.statSync(filepath)
-    output += indent + '  ' + asObjectKey(filename) + ': '
-    if (fileinfo.isDirectory()) {
-      output += generateFromDir(filepath, indent + '  ')
-    } else {
-      var content = fs.readFileSync(filepath)
-      output += 'File('
-      if (content.length === 0) {
-        output += "'')"
-      } else {
-        try {
-          var jsonStr = outputAsJSON(indent + '    ', content)
-          if (/^[\[{]/.test(jsonStr)) {
-            jsonStr = jsonStr.replace(/  ([}\]])$/, '$1)')
-          } else {
-            jsonStr += '\n' + indent + '  )'
-          }
-          output += jsonStr
-        } catch (ex) {
-          if (/[^\-\w\s~`!@#$%^&*()_=+[\]{}|\\;:'",./<>?]/.test(content.toString())) {
-            output += outputAsBuffer(indent + '    ', content)
-          } else {
-            output += outputAsText(indent + '    ', content)
-          }
-          output += '\n' + indent + '  )'
-        }
-      }
-    }
-    output += ',\n'
+  Object.keys(contents).forEach(function (filename, ii, keys) {
+    var key = asObjectKey(filename)
+    var value = modelToString(contents[filename], indent + '  ')
+    output += indent + '  ' + key + ': ' + value
+    if (ii < keys.length-1) output += ','
+    output += '\n'
   })
   return output + indent + '})'
+}
+
+function fileToString (content, indent) {
+  if (content.length === 0) return "File('')"
+  var output = 'File('
+  try {
+    var jsonStr = outputAsJSON(indent + '  ', content)
+    if (/^[\[{]/.test(jsonStr)) {
+      output += jsonStr.replace(/  ([}\]])$/, '$1)')
+    } else {
+      output += jsonStr + '\n' + indent + '  )'
+    }
+  } catch (ex) {
+    if (/[^\-\w\s~`!@#$%^&*()_=+[\]{}|\\;:'",./<>?]/.test(content.toString())) {
+      output += outputAsBuffer(indent + '  ', content)
+          .replace(/[)]$/,'\n' + indent + '))')
+    } else {
+      output += outputAsText(indent + '  ', content) +
+          '\n' + indent + ')'
+    }
+  }
+  return output
 }
 
 function outputAsJSON (indent, content) {
@@ -54,8 +64,9 @@ function outputAsJSON (indent, content) {
 }
 
 function outputAsText (indent, content) {
+  content = content.toString('utf8')
   var endsInNewLine = /\n$/.test(content)
-  var lines = content.toString('utf8').split(/\n/).map(function (line) { return line + '\n' })
+  var lines = content.split(/\n/).map(function (line) { return line + '\n' })
   if (endsInNewLine) lines.pop()
   var output = '\n' + indent + asLiteral(lines.shift())
   lines.forEach(function (line) {
@@ -71,7 +82,7 @@ function outputAsBuffer (indent, content) {
   chunks.forEach(function (chunk) {
     output += ' +\n' + indent + "'" + chunk + "'"
   })
-  output += ", 'hex')"
+  output += ',\n' + indent + "'hex')"
   return output
 }
 
