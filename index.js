@@ -6,13 +6,13 @@ var rimraf = require('rimraf')
 
 var Tacks = module.exports = function (fixture) {
   this.fixture = fixture
-  computeFixturePaths('/', fixture)
+  computeFixturePaths('', fixture)
 }
 Tacks.prototype = {}
 
 // add path properties to everything relative to the fixture root
 function computeFixturePaths (entitypath, fixture) {
-  fixture.path = entitypath.slice(1)
+  fixture.path = entitypath
   if (fixture.type === 'dir') {
     Object.keys(fixture.contents).forEach(function (content) {
       computeFixturePaths(path.join(entitypath, content), fixture.contents[content])
