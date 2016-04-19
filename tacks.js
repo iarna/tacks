@@ -1,7 +1,7 @@
 'use strict'
 var inherits = require('util').inherits
 var BaseTacks = require('./base.js')
-var mixinReify = require('./mixin-reify.js')
+var mixinReify = require('./reify.js')
 
 module.exports = Tacks
 
