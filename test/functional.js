@@ -3,11 +3,11 @@ var path = require('path')
 var test = require('tap').test
 var rimraf = require('rimraf')
 var loadFromDir = require('../load-from-dir.js')
-var generateFromDir = require('../generate-from-dir.js')
 var Tacks = require('../index.js')
-var File = require('../file.js')
-var Dir = require('../dir.js')
-var Symlink = require('../symlink.js')
+var generateFromDir = Tacks.generateFromDir
+var File = Tacks.File
+var Dir = Tacks.Dir
+var Symlink = Tacks.Symlink
 
 var testroot = path.join(__dirname, path.basename(__filename, '.js'))
 var testdir = path.join(testroot, 'example')

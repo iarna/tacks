@@ -1,10 +1,10 @@
 'use strict'
 var path = require('path')
 var fs = require('graceful-fs')
-var Tacks = require('./base.js')
-var File = require('./file.js')
-var Dir = require('./dir.js')
-var Symlink = require('./symlink.js')
+var Tacks = require('./tacks.js')
+var File = Tacks.File
+var Dir = Tacks.Dir
+var Symlink = Tacks.Symlink
 
 module.exports = function (dir) {
   return new Tacks(loadFromDir(dir))
