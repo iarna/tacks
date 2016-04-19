@@ -7,7 +7,7 @@
     "tacks": "cmdline.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tap test/*.js"
   },
   "keywords": [],
   "author": "Rebecca Turner <me@re-becca.org> (http://re-becca.org/)",
@@ -17,5 +17,8 @@
     "mkdirp": "^0.5.1",
     "rimraf": "^2.5.1",
     "yargs": "^3.32.0"
+  },
+  "devDependencies": {
+    "tap": "^5.7.1"
   }
 }
