@@ -4,6 +4,7 @@ var fs = require('graceful-fs')
 var Tacks = require('./base.js')
 var File = require('./file.js')
 var Dir = require('./dir.js')
+var Symlink = require('./symlink.js')
 
 module.exports = function (dir) {
   return new Tacks(loadFromDir(dir))
@@ -17,14 +18,21 @@ function fromJSON (str) {
   }
 }
 
-function loadFromDir (dir) {
+function loadFromDir (dir, top) {
+  if (!top) top = dir
   var dirInfo = {}
   fs.readdirSync(dir).forEach(function (filename) {
     if (filename === '.git') return
     var filepath = path.join(dir, filename)
-    var fileinfo = fs.statSync(filepath)
-    if (fileinfo.isDirectory()) {
-      dirInfo[filename] = loadFromDir(filepath)
+    var fileinfo = fs.lstatSync(filepath)
+    if (fileinfo.isSymbolicLink()) {
+      var dest = fs.readlinkSync(filepath)
+      if (/^(?:[a-z]\:)?[\\/]/i.test(dest)) {
+        dest = '/' + path.relative(top, dest)
+      }
+      dirInfo[filename] = Symlink(dest)
+    } else if (fileinfo.isDirectory()) {
+      dirInfo[filename] = loadFromDir(filepath, top)
     } else {
       var content = fs.readFileSync(filepath)
       var contentStr = content.toString('utf8')

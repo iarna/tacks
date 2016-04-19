@@ -13,3 +13,4 @@ mixinReify(Tacks)
 
 Tacks.File = require('./file.js')
 Tacks.Dir = require('./dir.js')
+Tacks.Symlink = require('./symlink.js')

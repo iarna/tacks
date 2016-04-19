@@ -4,6 +4,7 @@ var loadFromDir = require('./load-from-dir.js')
 module.exports = function generateFromDir (dir) {
   return "var Tacks = require('tacks')\n" +
       'var File = Tacks.File\n' +
+      'var Symlink = Tacks.Symlink\n' +
       'var Dir = Tacks.Dir\n' +
       'module.exports = ' + generateObject(dir) + '\n'
 }
@@ -18,9 +19,15 @@ function modelToString (model, indent) {
     return dirToString(model.contents, indent)
   } else if (model.type === 'file') {
     return fileToString(model.contents, indent)
+  } else if (model.type === 'symlink') {
+    return symlinkToString(model.dest, indent)
   } else {
     throw new Error("Don't know how to serialize " + model.type)
   }
+}
+
+function symlinkToString (dest, indent) {
+  return 'Symlink(' + asLiteral(dest) + ')'
 }
 
 function dirToString (contents, indent) {

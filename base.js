@@ -14,7 +14,7 @@ function computeFixturePaths (entitypath, fixture) {
     Object.keys(fixture.contents).forEach(function (content) {
       computeFixturePaths(path.join(entitypath, content), fixture.contents[content])
     })
-  } else if (fixture.type === 'file') {
+  } else if (fixture.type === 'file' || fixture.type === 'symlink') {
     // do nothing
   } else {
     throw new Error('Unknown fixture type: ' + fixture.type)

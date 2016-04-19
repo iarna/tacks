@@ -17,6 +17,13 @@ module.exports = function (Tacks) {
     } else if (fixture.type === 'file') {
       mkdirp.sync(path.resolve(location, fixture.path, '..'))
       fs.writeFileSync(path.resolve(location, fixture.path), fixture.contents)
+    } else if (fixture.type === 'symlink') {
+      var filepath = path.resolve(location, fixture.path)
+      var dest = fixture.dest
+      if (dest[0] === '/') {
+        dest = path.resolve(location, dest.slice(1))
+      }
+      fs.symlinkSync(dest, filepath, 'junction')
     } else {
       throw new Error('Unknown fixture type: ' + fixture.type)
     }

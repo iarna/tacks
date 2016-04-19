@@ -48,13 +48,20 @@ Cleanup a fixture we installed in `/path/to/fixture`.
 
 Creates a new `Dir` object for consumption by `new Tacks`.  `dirspec` is a
 object whose properties are the names of files in a directory and whose
-values are either `File` objects or `Dir` objects.
+values are either `File` objects, `Dir` objects or `Symlink` objects.
 
 #### var file = Tacks.File(filespec)
 
 Creates a new `File` object for use in `Dir` objects. `filespec` can be
 either a `String`, a `Buffer` or an `Object`. In the last case, it
 will be stringified with `JSON.stringify` before writing it to disk
+
+#### var symlink = Tacks.Symlink(destination)
+
+Creates a new `Symlink` object for use in `Dir` objects. `destination` should
+either be relative to where the symlink is being created, or absolute relative
+to the root of the fixture. That is, `Tacks.Symlink('/')` will create a symlink
+pointing at the fixture root.
 
 #### var fixturestr = Tacks.generateFromDir(dir)
 

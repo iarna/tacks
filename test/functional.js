@@ -7,6 +7,7 @@ var generateFromDir = require('../generate-from-dir.js')
 var Tacks = require('../index.js')
 var File = require('../file.js')
 var Dir = require('../dir.js')
+var Symlink = require('../symlink.js')
 
 var testroot = path.join(__dirname, path.basename(__filename, '.js'))
 var testdir = path.join(testroot, 'example')
@@ -17,13 +18,18 @@ var fixture = new Tacks(
     'a': Dir({
       'b': Dir({
         'c': Dir({
-          'foo.txt': File('')
+          'foo.txt': File(''),
+          'bar.txt': Symlink('foo.txt'),
+          'ascii.txt': Symlink('/ascii.txt')
         })
       })
     }),
     'ascii.txt': File(
       'abc\n'
     ),
+    'foo': Dir({
+      'foo.txt': Symlink('/a/b/c/foo.txt')
+    }),
     'binary.gz': File(new Buffer(
       '1f8b0800d063115700034b4c4ae602004e81884704000000',
       'hex'
