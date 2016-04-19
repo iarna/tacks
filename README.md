@@ -13,57 +13,125 @@ tacks /path/to/fixture/example > example.js
 Create and destroy the fixture from your tests:
 
 ```
+var Tacks = require('tacks')
+var Dir = Tacks.Dir
+var File = Tacks.File
+var Symlink = Tacks.Symlink
+
+// I like my fixture paths to match my test filename:
+var fixturepath = path.join(__dirname, path.basename(__filename, '.js'))
+
 var example = require('./example.js')
-example.create('/tmp/fixture/path')
+example.create(fixturepath)
 …
-example.remove('/tmp/fixture/path')
+example.remove(fixturepath)
+```
+
+Or create your own fixture inline:
+```
+var example = new Tacks(Dir({
+  'package.json': File({
+    name: 'example',
+    version: '1.0.0'
+  })
+}))
+example.create(fixturepath)
+…
+example.remove(fixturepath)
 ```
 
 ### STATUS
 
 This is very much a "release early" type release.  Still very much in
-progress.
+progress, but being used.
 
 ### CLASSES
 
 These are used in the generated code. It's totally legit to write them directly though.
 
-```
-var Tacks = require('tacks')
-```
+#### Consturctor
 
-#### var fixture = new Tacks(dir)
+```
+var fixture = new Tacks(Dir({
+  'package.json': File({
+    name: 'example',
+    version: '1.0.0'
+  })
+}))
+```
 
 Create a new fixture object based on a `Dir` object, see below.
 
-#### fixture.create('/path/to/fixture')
+#### Create Fixture On Disk
+
+```
+fixture.create('/path/to/fixture')
+```
 
 Take the directory and files described by the fixture and create it in `/path/to/fixture`
 
-#### fixture.remove('/path/to/fixture')
+#### Remove Fixture From Disk
+
+```
+fixture.remove('/path/to/fixture')
+```
 
 Cleanup a fixture we installed in `/path/to/fixture`.
 
-#### var dir = Tacks.Dir(dirspec)
+#### Add Directory
+
+```
+var Dir = Tacks.Dir
+var mydir = Tacks.Dir(dirspec)
+```
 
 Creates a new `Dir` object for consumption by `new Tacks`.  `dirspec` is a
 object whose properties are the names of files in a directory and whose
 values are either `File` objects, `Dir` objects or `Symlink` objects.
 
-#### var file = Tacks.File(filespec)
+#### Add File
+
+```
+var File = Tacks.File
+var myfile = Tacks.File(filespec)
+```
 
 Creates a new `File` object for use in `Dir` objects. `filespec` can be
 either a `String`, a `Buffer` or an `Object`. In the last case, it
 will be stringified with `JSON.stringify` before writing it to disk
 
-#### var symlink = Tacks.Symlink(destination)
+#### Add Symlink
+
+```
+var Symlink = Tacks.Symlink
+var mysymlink = Tacks.Symlink(destination)
+```
 
 Creates a new `Symlink` object for use in `Dir` objects. `destination` should
 either be relative to where the symlink is being created, or absolute relative
 to the root of the fixture. That is, `Tacks.Symlink('/')` will create a symlink
 pointing at the fixture root.
 
-#### var fixturestr = Tacks.generateFromDir(dir)
+#### Generate Fixture Object From Directory
+
+```
+var loadFromDir = require('tacks/load-from-dir')
+var onDisk = loadFromDir('tests/example')
+```
+The value returned is a `Tacks` object that you can call `create` or
+`remove` on. It's also handy for using in tests use compare an in
+memory tacks fixture to whatever ended up on disk, eg with `tap`:
+
+```
+t.same(onDisk, example, "What's on disk matches our example")
+```
+
+#### Geneate JavaScript From Directory
+
+```
+var generateFromDir = require('tacks/generate-from-dir')
+var fixturestr = Tacks.generateFromDir(dir)
+```
 
 This is what's used by the commandline– it generates javascript as a string
 from a directory on disk.  It works hard to produce something that looks
