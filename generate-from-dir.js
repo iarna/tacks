@@ -4,13 +4,15 @@ var fs = require('graceful-fs')
 var loadFromDir = require('./load-from-dir.js')
 
 module.exports = function generateFromDir (dir) {
-  var model = loadFromDir(dir)
   return "var Tacks = require('tacks')\n" +
       'var File = Tacks.File\n' +
       'var Dir = Tacks.Dir\n' +
-      'module.exports = new Tacks(\n' +
-      '  ' + modelToString(model.fixture, '  ') + '\n' +
-      ')\n'
+      'module.exports = ' + generateObject(dir) + '\n'
+}
+
+var generateObject = module.exports.generateObject = function (dir) {
+  var model = loadFromDir(dir)
+  return 'new Tacks(\n  ' + modelToString(model.fixture, '  ') + '\n)'
 }
 
 function modelToString (model, indent) {
