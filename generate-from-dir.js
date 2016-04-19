@@ -1,6 +1,4 @@
 'use strict'
-var path = require('path')
-var fs = require('graceful-fs')
 var loadFromDir = require('./load-from-dir.js')
 
 module.exports = function generateFromDir (dir) {
@@ -16,7 +14,6 @@ var generateObject = module.exports.generateObject = function (dir) {
 }
 
 function modelToString (model, indent) {
-  var output = ''
   if (model.type === 'dir') {
     return dirToString(model.contents, indent)
   } else if (model.type === 'file') {
@@ -32,7 +29,7 @@ function dirToString (contents, indent) {
     var key = asObjectKey(filename)
     var value = modelToString(contents[filename], indent + '  ')
     output += indent + '  ' + key + ': ' + value
-    if (ii < keys.length-1) output += ','
+    if (ii < keys.length - 1) output += ','
     output += '\n'
   })
   return output + indent + '})'
@@ -44,14 +41,14 @@ function fileToString (content, indent) {
   try {
     var jsonStr = outputAsJSON(indent + '  ', content)
     if (/^[\[{]/.test(jsonStr)) {
-      output += jsonStr.replace(/  ([}\]])$/, '$1)')
+      output += jsonStr.replace(/\s\s([}\]])$/, '$1)')
     } else {
       output += jsonStr + '\n' + indent + '  )'
     }
   } catch (ex) {
     if (/[^\-\w\s~`!@#$%^&*()_=+[\]{}|\\;:'",./<>?]/.test(content.toString())) {
       output += outputAsBuffer(indent + '  ', content)
-          .replace(/[)]$/,'\n' + indent + '))')
+          .replace(/[)]$/, '\n' + indent + '))')
     } else {
       output += outputAsText(indent + '  ', content) +
           '\n' + indent + ')'
