@@ -4,7 +4,7 @@ var argv = require('yargs')
   .usage('Usage: $0 fixturedir')
   .demand(1, 1)
   .argv
-var Fixture = require('./index.js')
+var generateFromDir = require('./generate-from-dir.js')
 
-var fixturedata = Fixture.generateFromDir(argv._[0])
+var fixturedata = generateFromDir(argv._[0])
 console.log(fixturedata)
