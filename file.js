@@ -1,4 +1,6 @@
 'use strict'
+var path = require('path')
+var fs = require('fs')
 var inherits = require('util').inherits
 var Entry = require('./entry')
 module.exports = File
@@ -12,3 +14,7 @@ function File (contents) {
   Entry.call(this, 'file', contents)
 }
 inherits(File, Entry)
+
+File.prototype.create = function (where) {
+  fs.writeFileSync(path.resolve(where, this.path), this.contents)
+}
