@@ -10,12 +10,10 @@ function Dir (contents) {
 }
 inherits(Dir, Entry)
 
-Dir.prototype.computePath = function (entitypath) {
-  Entry.prototype.computePath.call(this, entitypath)
-
+Dir.prototype.forContents = function (cb) {
   var contentNames = Object.keys(this.contents)
   for (var ii in contentNames) {
     var name = contentNames[ii]
-    this.contents[name].computePath(path.join(entitypath, name))
+    cb.call(this, this.contents[name], name)
   }
 }

@@ -9,6 +9,10 @@ function Entry (type, contents) {
 }
 Entry.prototype = {}
 
+Entry.prototype.forContents = function (cb) {
+  cb.call(this, this.contents)
+}
+
 Entry.prototype.computePath = function (entitypath) {
   this.path = path.relative('/', entitypath)
 }
