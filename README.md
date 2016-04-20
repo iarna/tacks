@@ -120,10 +120,39 @@ var onDisk = loadFromDir('tests/example')
 ```
 The value returned is a `Tacks` object that you can call `create` or
 `remove` on. It's also handy for using in tests use compare an in
-memory tacks fixture to whatever ended up on disk, eg with `tap`:
+memory tacks fixture to whatever ended up on disk.
+
+#### Assert Two Fixtures The Same With node-tap
 
 ```
-t.same(onDisk, example, "What's on disk matches our example")
+var test = require('tap').test
+var tacksAreTheSame = require('tacks/tap').areTheSame
+test('example', function (t) {
+  return tacksAreTheSame(t, actual, expected, 'got the expected results')
+})
+```
+The `tacks/tap` submodule is the start of tap assertions for comparing fixtures.
+
+`areTheSame` creates a subtest, and inside that subtest runs a bunch of
+assertions comparing the contents of the two models.  It's smart enough to
+consider `tacks` equivalent things equal, eg strings & buffers with the same
+content.
+
+Because it creates a subtest, it's async, it returns the subtest (which is
+also a promise) so you can either return it yourself and your test will
+complete when it does, or do something like:
+
+```
+  tacksAreTheSame(t, actual, expected, 'got the expected results').then(t.done)
+```
+
+or
+
+```
+  tacksAreTheSame(t, actual, expected, 'got the expected results').then(function () {
+    … more tests …
+    t.done()
+  })
 ```
 
 #### Geneate JavaScript From Directory

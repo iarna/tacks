@@ -1,9 +1,11 @@
 var fs = require('fs')
 var path = require('path')
+var tap = require('tap')
 var test = require('tap').test
 var rimraf = require('rimraf')
 var loadFromDir = require('../load-from-dir.js')
 var generateFromDir = require('../generate-from-dir.js')
+var tacksAreTheSame = require('../tap.js').areTheSame
 var Tacks = require('../index.js')
 var File = Tacks.File
 var Dir = Tacks.Dir
@@ -70,29 +72,17 @@ test('setup', function (t) {
   t.done()
 })
 
-function compareObjs (t, actual, expected, msg) {
-  if (expected === null) return t.is(expected, null, msg)
-  if (typeof expected !== 'object') return t.is(expected, actual, msg)
-  if (Buffer.isBuffer(expected)) return t.is(expected.compare(actual), 0, msg)
-  t.is(Object.keys(actual).length, Object.keys(expected).length, msg + ' size')
-  Object.keys(expected).forEach(function (key) {
-    compareObjs(t, actual[key], expected[key], msg + ': ' + key)
-  })
-}
-
 test('loadFromDir', function (t) {
   var model = loadFromDir(testdir)
-  compareObjs(t, model, fixture, 'loadFromDir')
-  t.done()
+  return tacksAreTheSame(t, model, fixture, 'loadFromDir')
 })
 
 test('generateFromDir', function (t) {
   var js = generateFromDir(testdir)
   fs.writeFileSync(testmodule, js.replace(/'tacks'/g, "'../../index.js'"))
   var modelFromModule = require(testmodule)
-  compareObjs(t, modelFromModule, fixture, 'generateFromDir')
-  t.done()
-})
+  return tacksAreTheSame(t, modelFromModule, fixture, 'generateFromDir')
+}).catch(test.throws)
 
 test('cleanup', function (t) {
   cleanup()
