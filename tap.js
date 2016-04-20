@@ -49,5 +49,5 @@ function compareFile (t, path, actual, expected) {
 }
 
 function compareSymlink(t, path, actual, expected) {
-  t.is(actual.dest, expected.dest, path + ': symlink destination')
+  t.is(actual.contents, expected.contents, path + ': symlink destination')
 }

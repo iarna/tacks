@@ -44,7 +44,7 @@ Tacks.prototype.create = function (location, fixture) {
     fs.writeFileSync(path.resolve(location, fixture.path), fixture.contents)
   } else if (fixture.type === 'symlink') {
     var filepath = path.resolve(location, fixture.path)
-    var dest = fixture.dest
+    var dest = fixture.contents
     if (dest[0] === '/') {
       dest = path.resolve(location, dest.slice(1))
     }

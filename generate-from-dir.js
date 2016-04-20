@@ -20,7 +20,7 @@ function modelToString (model, indent) {
   } else if (model.type === 'file') {
     return fileToString(model.contents, indent)
   } else if (model.type === 'symlink') {
-    return symlinkToString(model.dest, indent)
+    return symlinkToString(model.contents, indent)
   } else {
     throw new Error("Don't know how to serialize " + model.type)
   }
