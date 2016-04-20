@@ -26,14 +26,14 @@ function compare (t, path, actual, expected) {
 }
 
 function compareDir (t, path, actual, expected) {
-  Object.keys(expected.contents).forEach(function (filename) {
+  expected.forContents(function (expectedContent, filename) {
     if (!actual.contents[filename]) {
       t.fail(join(path, filename) + ' missing file')
       return
     }
-    compare(t, join(path, filename), actual.contents[filename], expected.contents[filename])
+    compare(t, join(path, filename), actual.contents[filename], expectedContent)
   })
-  Object.keys(actual.contents).forEach(function (filename) {
+  actual.forContents(function (_, filename) {
     if (!expected.contents[filename]) {
       t.fail(join(path, filename) + ' extraneous file')
     }
