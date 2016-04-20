@@ -67,7 +67,7 @@ function cleanup () {
 }
 
 test('setup', function (t) {
-  cleanup()
+  rimraf.sync(testroot)
   setup()
   t.done()
 })

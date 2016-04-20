@@ -3,6 +3,8 @@ var path = require('path')
 var fs = require('fs')
 var inherits = require('util').inherits
 var Entry = require('./entry')
+var asLiteral = require('./as-literal.js')
+
 module.exports = Symlink
 
 function Symlink (dest) {
@@ -19,4 +21,8 @@ Symlink.prototype.create = function (where) {
     dest = path.resolve(where, dest.slice(1))
   }
   fs.symlinkSync(dest, filepath, 'junction')
+}
+
+Symlink.prototype.toSource = function () {
+  return 'Symlink(' + asLiteral(this.contents) + ')'
 }

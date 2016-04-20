@@ -20,3 +20,8 @@ Tacks.prototype.create = function (location) {
 Tacks.prototype.remove = function (location) {
   this.fixture.remove(location)
 }
+
+Tacks.prototype.toSource = function () {
+  return 'new Tacks(\n' +
+    this.fixture.toSource().replace(/(^|\n)/g, '$1  ') + '\n)'
+}
