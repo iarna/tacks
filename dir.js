@@ -2,8 +2,7 @@
 module.exports = Dir
 
 function Dir (contents) {
-  return {
-    type: 'dir',
-    contents: contents || {}
-  }
+  if (this == null) return new Dir(contents)
+  this.type = 'dir'
+  this.contents = contents || {}
 }

@@ -2,8 +2,8 @@
 module.exports = Symlink
 
 function Symlink (dest) {
-  return {
-    type: 'symlink',
-    dest: dest
-  }
+  if (this == null) return new Symlink(dest)
+  if (dest == null || dest === '') throw new Error('Symlinks must have a destination')
+  this.type = 'symlink'
+  this.dest = dest
 }
