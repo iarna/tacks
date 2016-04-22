@@ -9,9 +9,17 @@
   "scripts": {
     "test": "tap test/*.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iarna/tacks"
+  },
   "keywords": [],
   "author": "Rebecca Turner <me@re-becca.org> (http://re-becca.org/)",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iarna/tacks/issues"
+  },
+  "homepage": "https://github.com/iarna/tacks",
   "dependencies": {
     "graceful-fs": "^4.1.2",
     "mkdirp": "^0.5.1",
