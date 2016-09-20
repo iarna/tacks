@@ -1,5 +1,9 @@
 # tacks
 
+## v1.2.2 2016-09-19
+
+* Added repo info to package.json. Thank you @watilde!
+
 ## v1.2.1 2016-04-22
 
 * Lots of internal-only refactoring/rewriting to simplify future additions.
