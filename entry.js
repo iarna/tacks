@@ -4,6 +4,7 @@ var rimraf = require('rimraf')
 module.exports = Entry
 
 function Entry (type, contents) {
+  if (type === 'symlink') contents = path.join(contents)
   this.type = type
   this.contents = contents
   this.path = null

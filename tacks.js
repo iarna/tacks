@@ -1,5 +1,6 @@
 'use strict'
 var fs = require('fs')
+var path = require('path')
 
 module.exports = Tacks
 
@@ -9,7 +10,7 @@ Tacks.Symlink = require('./symlink.js')
 
 function Tacks (fixture) {
   this.fixture = fixture
-  fixture.computePath('/')
+  fixture.computePath(path.sep)
 }
 Tacks.prototype = {}
 

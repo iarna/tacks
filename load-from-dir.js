@@ -28,7 +28,7 @@ function loadFromDir (dir, top) {
     if (fileinfo.isSymbolicLink()) {
       var dest = fs.readlinkSync(filepath)
       if (/^(?:[a-z]\:)?[\\/]/i.test(dest)) {
-        dest = '/' + path.relative(top, dest)
+        dest = path.join('/', path.relative(top, dest))
       }
       dirInfo[filename] = Symlink(dest)
     } else if (fileinfo.isDirectory()) {
