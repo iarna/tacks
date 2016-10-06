@@ -1,14 +1,16 @@
 'use strict'
+var path = require('path')
+
 exports.areTheSame = function (tap, actual, expected, msg) {
   return tap.test(msg, function (t) {
-    compare(t, '/', actual.fixture, expected.fixture)
+    compare(t, path.sep, actual.fixture, expected.fixture)
     t.done()
   })
 }
 
 function join (p1, p2) {
-  if (p1 === '/') return p1 + p2
-  return p1 + '/' + p2
+  if (p1 === path.sep) return p1 + p2
+  return path.join(p1, p2)
 }
 
 function compare (t, path, actual, expected) {

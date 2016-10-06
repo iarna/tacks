@@ -17,8 +17,8 @@ inherits(Symlink, Entry)
 Symlink.prototype.create = function (where) {
   var filepath = path.resolve(where, this.path)
   var dest = this.contents
-  if (dest[0] === '/') {
-    dest = path.resolve(where, dest.slice(1))
+  if (dest.slice(0, path.sep.length) === path.sep) {
+    dest = path.resolve(where, dest.slice(path.sep.length))
   }
   fs.symlinkSync(dest, filepath, 'junction')
 }
