@@ -6,13 +6,13 @@ Generate fixture modules from folders
 
 Generate a fixture from a folder on disk:
 
-```
+```sh
 tacks /path/to/fixture/example > example.js
 ```
 
 Create and destroy the fixture from your tests:
 
-```
+```js
 var Tacks = require('tacks')
 var Dir = Tacks.Dir
 var File = Tacks.File
@@ -28,7 +28,7 @@ example.remove(fixturepath)
 ```
 
 Or create your own fixture inline:
-```
+```js
 var example = new Tacks(Dir({
   'package.json': File({
     name: 'example',
@@ -51,7 +51,7 @@ These are used in the generated code. It's totally legit to write them directly 
 
 #### Consturctor
 
-```
+```js
 var fixture = new Tacks(Dir({
   'package.json': File({
     name: 'example',
@@ -64,7 +64,7 @@ Create a new fixture object based on a `Dir` object, see below.
 
 #### Create Fixture On Disk
 
-```
+```js
 fixture.create('/path/to/fixture')
 ```
 
@@ -72,7 +72,7 @@ Take the directory and files described by the fixture and create it in `/path/to
 
 #### Remove Fixture From Disk
 
-```
+```js
 fixture.remove('/path/to/fixture')
 ```
 
@@ -80,7 +80,7 @@ Cleanup a fixture we installed in `/path/to/fixture`.
 
 #### Add Directory
 
-```
+```js
 var Dir = Tacks.Dir
 var mydir = Tacks.Dir(dirspec)
 ```
@@ -91,7 +91,7 @@ values are either `File` objects, `Dir` objects or `Symlink` objects.
 
 #### Add File
 
-```
+```js
 var File = Tacks.File
 var myfile = Tacks.File(filespec)
 ```
@@ -102,7 +102,7 @@ will be stringified with `JSON.stringify` before writing it to disk
 
 #### Add Symlink
 
-```
+```js
 var Symlink = Tacks.Symlink
 var mysymlink = Tacks.Symlink(destination)
 ```
@@ -114,7 +114,7 @@ pointing at the fixture root.
 
 #### Generate Fixture Object From Directory
 
-```
+```js
 var loadFromDir = require('tacks/load-from-dir')
 var onDisk = loadFromDir('tests/example')
 ```
@@ -124,7 +124,7 @@ memory tacks fixture to whatever ended up on disk.
 
 #### Assert Two Fixtures The Same With node-tap
 
-```
+```js
 var test = require('tap').test
 var tacksAreTheSame = require('tacks/tap').areTheSame
 test('example', function (t) {
@@ -142,13 +142,13 @@ Because it creates a subtest, it's async, it returns the subtest (which is
 also a promise) so you can either return it yourself and your test will
 complete when it does, or do something like:
 
-```
+```js
   tacksAreTheSame(t, actual, expected, 'got the expected results').then(t.done)
 ```
 
 or
 
-```
+```js
   tacksAreTheSame(t, actual, expected, 'got the expected results').then(function () {
     … more tests …
     t.done()
@@ -157,7 +157,7 @@ or
 
 #### Geneate JavaScript From Directory
 
-```
+```js
 var generateFromDir = require('tacks/generate-from-dir')
 var fixturestr = Tacks.generateFromDir(dir)
 ```
