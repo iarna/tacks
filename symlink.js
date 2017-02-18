@@ -19,6 +19,8 @@ Symlink.prototype.create = function (where) {
   var dest = this.contents
   if (dest[0] === '/') {
     dest = path.resolve(where, dest.slice(1))
+  } else if (/^\w:[\\/]/.test(dest)) {
+    dest = path.resolve(where, dest.slice(3))
   }
   fs.symlinkSync(dest, filepath, 'junction')
 }
