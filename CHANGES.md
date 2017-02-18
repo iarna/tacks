@@ -1,5 +1,11 @@
 # tacks
 
+## v1.2.3 2017-02-17
+
+* Strip off Windows drive letter absolutes when creating symlinks just as we do
+  with `/`.
+* Consistently use unix-style path separators on Windows.
+
 ## v1.2.2 2016-09-19
 
 * Added repo info to package.json. Thank you @watilde!
