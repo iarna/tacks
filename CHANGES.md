@@ -1,5 +1,9 @@
 # tacks
 
+## v1.2.4 2017-02-17
+
+* Don't consider the final slash meaningful when comparing path names for equality.
+
 ## v1.2.3 2017-02-17
 
 * Strip off Windows drive letter absolutes when creating symlinks just as we do
