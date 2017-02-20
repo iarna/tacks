@@ -22,7 +22,11 @@ Symlink.prototype.create = function (where) {
   } else if (/^\w:[\\/]/.test(dest)) {
     dest = path.resolve(where, dest.slice(3))
   }
-  fs.symlinkSync(dest, filepath, 'junction')
+  try {
+    fs.symlinkSync(dest, filepath, 'directory')
+  } catch (_) {
+    fs.symlinkSync(dest, filepath, 'junction')
+  }
 }
 
 Symlink.prototype.toSource = function () {
