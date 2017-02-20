@@ -1,5 +1,10 @@
 # tacks
 
+## v1.2.5 2017-02-20
+
+* MORE consistently use unix-style path separators
+* Create symlinks if possible, use junctions as fallback only
+
 ## v1.2.4 2017-02-17
 
 * Don't consider the final slash meaningful when comparing path names for equality.
