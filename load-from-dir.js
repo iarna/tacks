@@ -26,11 +26,15 @@ function loadFromDir (dir, top) {
     var filepath = path.join(dir, filename)
     var fileinfo = fs.lstatSync(filepath)
     if (fileinfo.isSymbolicLink()) {
-      var dest = fs.readlinkSync(filepath).replace(/\\/g, '/').replace(/[/]$/, '')
+      var dest = fs.readlinkSync(filepath).replace(/[\\/]$/, '')
       var absDest = path.resolve(path.dirname(filepath), dest)
-      var relativeDest = path.relative(top, absDest)
-      if (dest === absDest) {
-        dest = '/' + relativeDest
+      var relativeDest = path.relative(path.dirname(filepath), absDest)
+      // if we're two or more levels up, plot relative to the top level instead of
+      // the link point
+      if (/^\.\.[/\\]\.\.[/\\]/.test(relativeDest.slice(0,6))) {
+        dest = '/' + path.relative(top, absDest)
+      } else {
+        dest = relativeDest
       }
       dirInfo[filename] = Symlink(dest.replace(/\\/g, '/'))
     } else if (fileinfo.isDirectory()) {

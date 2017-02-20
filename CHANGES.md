@@ -1,5 +1,10 @@
 # tacks
 
+## v1.2.6 2017-02-20
+
+* Sometimes links are created as symlinks, sometimes as junctions. Make the result on read
+  be consistent regardless of source.
+
 ## v1.2.5 2017-02-20
 
 * MORE consistently use unix-style path separators
