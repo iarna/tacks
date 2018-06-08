@@ -25,6 +25,11 @@
     "mkdirp": "^0.5.1",
     "rimraf": "^2.5.1"
   },
+  "bundleDependencies": [
+    "@iarna/cli",
+    "mkdirp",
+    "rimraf"
+  ],
   "devDependencies": {
     "tap": "^5.7.1"
   }
