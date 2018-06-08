@@ -1,5 +1,9 @@
 # tacks
 
+## v1.2.7 2018-06-08
+
+* Dep updates and faster to install cli
+
 ## v1.2.6 2017-02-20
 
 * Sometimes links are created as symlinks, sometimes as junctions. Make the result on read
