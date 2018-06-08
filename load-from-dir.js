@@ -1,6 +1,6 @@
 'use strict'
 var path = require('path')
-var fs = require('graceful-fs')
+var fs = require('fs')
 var Tacks = require('./tacks.js')
 var File = Tacks.File
 var Dir = Tacks.Dir
