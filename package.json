@@ -31,7 +31,7 @@
     "rimraf"
   ],
   "devDependencies": {
-    "tap": "^5.7.1"
+    "tap": "^12.0.1"
   },
   "files": [
     "as-literal.js",
