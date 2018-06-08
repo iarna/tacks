@@ -32,5 +32,18 @@
   ],
   "devDependencies": {
     "tap": "^5.7.1"
-  }
+  },
+  "files": [
+    "as-literal.js",
+    "as-object-key.js",
+    "cmdline.js",
+    "dir.js",
+    "entry.js",
+    "file.js",
+    "generate-from-dir.js",
+    "index.js",
+    "load-from-dir.js",
+    "symlink.js",
+    "tacks.js"
+  ]
 }
