@@ -44,6 +44,7 @@
     "index.js",
     "load-from-dir.js",
     "symlink.js",
-    "tacks.js"
+    "tacks.js",
+    "tap.js"
   ]
 }

@@ -1,5 +1,9 @@
 # tacks
 
+## v1.2.8 2018-09-04
+
+* Include undocumented, cut-rate tap integration.
+
 ## v1.2.7 2018-06-08
 
 * Dep updates and faster to install cli
