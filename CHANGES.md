@@ -1,6 +1,6 @@
 # tacks
 
-## v1.2.8 2018-09-04
+## v1.3.0 2019-01-25
 
 * Include undocumented, cut-rate tap integration.
 
