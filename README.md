@@ -143,7 +143,7 @@ also a promise) so you can either return it yourself and your test will
 complete when it does, or do something like:
 
 ```js
-  tacksAreTheSame(t, actual, expected, 'got the expected results').then(t.done)
+  tacksAreTheSame(t, actual, expected, 'got the expected results').then(t.end)
 ```
 
 or
@@ -151,7 +151,7 @@ or
 ```js
   tacksAreTheSame(t, actual, expected, 'got the expected results').then(function () {
     … more tests …
-    t.done()
+    t.end()
   })
 ```
 

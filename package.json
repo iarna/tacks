@@ -21,9 +21,9 @@
   },
   "homepage": "https://github.com/iarna/tacks",
   "dependencies": {
-    "@iarna/cli": "^2.0.0",
-    "mkdirp": "^0.5.1",
-    "rimraf": "^2.6.2"
+    "@iarna/cli": "^2.1.0",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^3.0.2"
   },
   "bundleDependencies": [
     "@iarna/cli",
@@ -31,7 +31,7 @@
     "rimraf"
   ],
   "devDependencies": {
-    "tap": "^12.0.1"
+    "tap": "^15.0.10"
   },
   "files": [
     "as-literal.js",
@@ -46,5 +46,8 @@
     "symlink.js",
     "tacks.js",
     "tap.js"
-  ]
+  ],
+  "tap": {
+    "check-coverage": false
+  }
 }

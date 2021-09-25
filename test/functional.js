@@ -69,7 +69,7 @@ function cleanup () {
 test('setup', function (t) {
   rimraf.sync(testroot)
   setup()
-  t.done()
+  t.end()
 })
 
 test('loadFromDir', function (t) {
@@ -93,5 +93,5 @@ test('cleanup', function (t) {
     t.pass(testdir + ' should not exist')
   }
   rimraf.sync(testroot)
-  t.done()
+  t.end()
 })

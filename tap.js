@@ -2,7 +2,7 @@
 exports.areTheSame = function (tap, actual, expected, msg) {
   return tap.test(msg, function (t) {
     compare(t, '/', actual.fixture, expected.fixture)
-    t.done()
+    t.end()
   })
 }
 
