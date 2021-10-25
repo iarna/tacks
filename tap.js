@@ -12,7 +12,7 @@ function join (p1, p2) {
 }
 
 function compare (t, path, actual, expected) {
-  t.is(actual.type, expected.type, path + ': type')
+  t.equal(actual.type, expected.type, path + ': type')
   if (actual.type !== expected.type) return
   if (expected.type === 'dir') {
     return compareDir(t, path, actual, expected)
@@ -42,12 +42,12 @@ function compareDir (t, path, actual, expected) {
 
 function compareFile (t, path, actual, expected) {
   if (Buffer.isBuffer(expected.contents)) {
-    t.same(Buffer(actual.contents), expected.contents, path + ': file buffer content')
+    t.same(Buffer.from(actual.contents), expected.contents, path + ': file buffer content')
   } else {
-    t.is(actual.contents.toString(), expected.contents, path + ': file string content')
+    t.equal(actual.contents.toString(), expected.contents, path + ': file string content')
   }
 }
 
 function compareSymlink(t, path, actual, expected) {
-  t.is(actual.contents, expected.contents, path + ': symlink destination')
+  t.equal(actual.contents, expected.contents, path + ': symlink destination')
 }

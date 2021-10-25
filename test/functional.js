@@ -32,7 +32,7 @@ var fixture = new Tacks(
     'foo': Dir({
       'foo.txt': Symlink('../a/b/c/foo.txt')
     }),
-    'binary.gz': File(new Buffer(
+    'binary.gz': File(Buffer.from(
       '1f8b0800d063115700034b4c4ae602004e81884704000000',
       'hex'
     )),
