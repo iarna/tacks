@@ -65,7 +65,7 @@ function outputAsText (content) {
 
 function outputAsBuffer (content) {
   var chunks = content.toString('hex').match(/.{1,60}/g)
-  var output = 'new Buffer(\n'
+  var output = 'Buffer.from(\n'
   output += "  '" + chunks.shift() + "'"
   chunks.forEach(function (chunk) {
     output += ' +\n  ' + "'" + chunk + "'"
